@@ -675,6 +675,18 @@ user_match (pam_handle_t *pamh, char *tok, struct login_info *item)
      * name of the user's primary group.
      */
 
+    /*
+     * Exact match for fully qualified username (user@domain) to prevent
+     * fully qualified usernames from being incorrectly parsed as user@host
+     * patterns.
+     */
+    if (strchr(string, '@') != NULL && strcasecmp(tok, string) == 0) {
+        if (item->debug)
+           pam_syslog (pamh, LOG_DEBUG,
+                       "user_match: exact match for fully qualified username '%s'", string);
+        return YES;
+    }
+
     /* Try to split on a pattern (@*[^@]+)(@+.*) */
     for (at = tok; *at == '@'; ++at);
 
