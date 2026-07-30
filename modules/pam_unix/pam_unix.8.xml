@@ -289,17 +289,6 @@
       </varlistentry>
       <varlistentry>
         <term>
-          bigcrypt
-        </term>
-        <listitem>
-          <para>
-            When a user changes their password next,
-            encrypt it with the DEC C2 algorithm.
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           sha256
         </term>
         <listitem>
@@ -399,7 +388,6 @@
         <listitem>
           <para>
             Set a minimum password length of <replaceable>n</replaceable>
-            characters. The max. for DES crypt based passwords is 8
             characters.
           </para>
         </listitem>
