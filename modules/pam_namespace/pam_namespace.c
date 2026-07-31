@@ -895,7 +895,7 @@ static int process_line(char *line, const char *home, const char *rhome,
      */
     if (uids) {
         uid_t *uidptr;
-        const char *ustr, *sstr;
+        char *ustr, *sstr;
         size_t count, i;
 
 	if (*uids == '~') {

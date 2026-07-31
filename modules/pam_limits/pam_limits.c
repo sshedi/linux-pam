@@ -865,7 +865,7 @@ parse_uid_range(pam_handle_t *pamh, const char *domain,
 		uid_t *min_uid, uid_t *max_uid)
 {
     const char *range = domain;
-    char *pmax;
+    const char *pmax;
     char *endptr;
     int rv = LIMIT_RANGE_MM;
 

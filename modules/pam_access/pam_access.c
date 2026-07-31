@@ -265,7 +265,7 @@ static int group_match (pam_handle_t *, char *, const char *, int);
 static int from_match (pam_handle_t *, char *, struct login_info *);
 static int remote_match (pam_handle_t *, char *, struct login_info *);
 static int string_match (pam_handle_t *, const char *, const char *, int);
-static int network_netmask_match (pam_handle_t *, const char *, const char *, struct login_info *);
+static int network_netmask_match (pam_handle_t *, char *, const char *, struct login_info *);
 
 
 /* isipaddr - find out if string provided is an IP address or not */
@@ -935,7 +935,7 @@ is_device (pam_handle_t *pamh, const char *tok)
  */
 static int
 network_netmask_match (pam_handle_t *pamh,
-		       const char *tok, const char *string, struct login_info *item)
+		       char *tok, const char *string, struct login_info *item)
 {
     char *netmask_ptr;
     char netmask_string[MAXHOSTNAMELEN + 1];

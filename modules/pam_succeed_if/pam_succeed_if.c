@@ -185,7 +185,7 @@ evaluate_noglob(const char *left, const char *right)
 static int
 evaluate_inlist(const char *left, const char *right)
 {
-	char *p;
+	const char *p;
 	/* Don't care about left containing ':'. */
 	while ((p=strstr(right, left)) != NULL) {
 		if (p == right || *(p-1) == ':') { /* ':' is a list separator */
