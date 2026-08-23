@@ -103,6 +103,19 @@ typedef struct {
 /* -------------- */
 #define UNIX_CTRLS_              33	/* number of ctrl arguments defined */
 
+/*
+ * Mask of all hash algorithm flags, used for mutual exclusion:
+ * selecting one hash algorithm clears all others.
+ */
+#define UNIX_HASH_ALGO_FLAGS \
+	( 020000ULL         /* UNIX_MD5_PASS */                 \
+	| 020000000ULL      /* UNIX_SHA256_PASS */              \
+	| 040000000ULL      /* UNIX_SHA512_PASS */              \
+	| 0200000000ULL     /* UNIX_BLOWFISH_PASS */            \
+	| 04000000000ULL    /* UNIX_GOST_YESCRYPT_PASS */       \
+	| 010000000000ULL   /* UNIX_YESCRYPT_PASS */            \
+	)
+
 static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 {
 /* symbol                      token name          ctrl mask                  ctrl             *
@@ -121,7 +134,7 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX__QUIET */              {NULL,               _ALL_ON_,                           02000, 0},
 /* UNIX_USE_AUTHTOK */         {"use_authtok",      _ALL_ON_,                           04000, 0},
 /* UNIX_SHADOW */              {"shadow",           _ALL_ON_,                          010000, 0},
-/* UNIX_MD5_PASS */            {"md5",              _ALL_ON_^(015660020000ULL),        020000, 1},
+/* UNIX_MD5_PASS */            {"md5",              _ALL_ON_^UNIX_HASH_ALGO_FLAGS,     020000, 1},
 /* UNIX__NULLOK */             {"nullok",           _ALL_ON_^(01000ULL),                    0, 0},
 /* UNIX_DEBUG */               {"debug",            _ALL_ON_,                          040000, 0},
 /* UNIX_NODELAY */             {"nodelay",          _ALL_ON_,                         0100000, 0},
@@ -130,15 +143,15 @@ static const UNIX_Ctrls unix_args[UNIX_CTRLS_] =
 /* UNIX_REMEMBER_PASSWD */     {"remember=",        _ALL_ON_,                        02000000, 0},
 /* UNIX_NOREAP */              {"noreap",           _ALL_ON_,                        04000000, 0},
 /* UNIX_BROKEN_SHADOW */       {"broken_shadow",    _ALL_ON_,                       010000000, 0},
-/* UNIX_SHA256_PASS */         {"sha256",           _ALL_ON_^(015660020000ULL),     020000000, 1},
-/* UNIX_SHA512_PASS */         {"sha512",           _ALL_ON_^(015660020000ULL),     040000000, 1},
+/* UNIX_SHA256_PASS */         {"sha256",           _ALL_ON_^UNIX_HASH_ALGO_FLAGS,  020000000, 1},
+/* UNIX_SHA512_PASS */         {"sha512",           _ALL_ON_^UNIX_HASH_ALGO_FLAGS,  040000000, 1},
 /* UNIX_ALGO_ROUNDS */         {"rounds=",          _ALL_ON_,                      0100000000, 0},
-/* UNIX_BLOWFISH_PASS */       {"blowfish",         _ALL_ON_^(015660020000ULL),    0200000000, 1},
+/* UNIX_BLOWFISH_PASS */       {"blowfish",         _ALL_ON_^UNIX_HASH_ALGO_FLAGS, 0200000000, 1},
 /* UNIX_MIN_PASS_LEN */        {"minlen=",          _ALL_ON_,                      0400000000, 0},
 /* UNIX_QUIET */               {"quiet",            _ALL_ON_,                     01000000000, 0},
 /* UNIX_NO_PASS_EXPIRY */      {"no_pass_expiry",   _ALL_ON_,                     02000000000, 0},
-/* UNIX_GOST_YESCRYPT_PASS */  {"gost_yescrypt",    _ALL_ON_^(015660020000ULL),   04000000000, 1},
-/* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^(015660020000ULL),  010000000000, 1},
+/* UNIX_GOST_YESCRYPT_PASS */  {"gost_yescrypt",    _ALL_ON_^UNIX_HASH_ALGO_FLAGS,04000000000, 1},
+/* UNIX_YESCRYPT_PASS */       {"yescrypt",         _ALL_ON_^UNIX_HASH_ALGO_FLAGS,010000000000, 1},
 /* UNIX_NULLRESETOK */         {"nullresetok",      _ALL_ON_,                    020000000000, 0},
 /* UNIX_EXPIRED_ONLY */        {NULL,               _ALL_ON_,                    040000000000, 0},
 };
