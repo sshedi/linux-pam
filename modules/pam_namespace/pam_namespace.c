@@ -2498,7 +2498,6 @@ static int get_user_data(struct instance_data *idata)
     /* Fill in RUSER too */
     retval = pam_get_item(idata->pamh, PAM_RUSER, (void*) &user_name );
     if ( user_name != NULL && retval == PAM_SUCCESS && user_name[0] != '\0' ) {
-	strncat(idata->ruser, user_name, sizeof(idata->ruser) - 1);
 	pwd = pam_modutil_getpwnam(idata->pamh, user_name);
     } else {
 	pwd = pam_modutil_getpwuid(idata->pamh, getuid());
